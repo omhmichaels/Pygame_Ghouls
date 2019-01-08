@@ -53,6 +53,7 @@ def message_display(text):
  
     game_loop()
     
+    
 def button(msg,x,y,w,h,ic,ac,action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -69,55 +70,12 @@ def button(msg,x,y,w,h,ic,ac,action=None):
     textSurf, textRect = text_objects(msg, smallText)
     textRect.center = ( (x+(w/2)), (y+(h/2)) )
     gameDisplay.blit(textSurf, textRect)
+
     
 def crash():
-    
-    
-    largeText = pygame.font.SysFont("comicsansms",115)
-    TextSurf, TextRect = text_objects("You Crashed", largeText)
-    TextRect.center = ((display_width/2),(display_height/2))
-    gameDisplay.blit(TextSurf, TextRect)
-    
+    message_display('You Crashed')
 
-    while True:
-        for event in pygame.event.get():
-            #print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-                
-        #gameDisplay.fill(white)
-        
 
-        button("Play Again",150,450,100,50,green,bright_green,game_loop)
-        button("Quit",550,450,100,50,red,bright_red,quitgame)
-
-        pygame.display.update()
-        clock.tick(15) 
-
-def paused():
-
-    largeText = pygame.font.SysFont("comicsansms",32)
-    TextSurf, TextRect = text_objects("Paused", largeText)
-    TextRect.center = ((display_width/2),(display_height/2))
-    gameDisplay.blit(TextSurf, TextRect)
-    
-
-    while pause:
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-                
-        #gameDisplay.fill(white)
-        
-
-        button("Continue",150,450,100,50,green,bright_green,unpause)
-        button("Quit",550,450,100,50,red,bright_red,quit)
-
-        pygame.display.update()
-        clock.tick(15)  
 
 
 def game_intro():
@@ -131,7 +89,6 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        
         gameDisplay.fill(white)
         largeText = pygame.font.Font('freesansbold.ttf',35)
         TextSurf, TextRect = text_objects("Somhm xx Ghouls", largeText)
@@ -196,12 +153,9 @@ def game_loop():
  
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    x_change = -23
+                    x_change = -5
                 if event.key == pygame.K_RIGHT:
-                    x_change = 23
-                if event.key == pygame.K_p:
-                    pause = True
-                    paused()
+                    x_change = 5
  
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -225,8 +179,8 @@ def game_loop():
             thing_starty = 0 - thing_height
             thing_startx = random.randrange(0,display_width)
             dodged += 1
-            thing_speed += (thing_speed  *1.1)
-            thing_width += (dodged * 1.05)
+            thing_speed += 1
+            thing_width += (dodged * 1.2)
  
         if y < thing_starty+thing_height:
             print('y crossover')
